@@ -41,9 +41,34 @@ server.get("/resourceList", function(req, res, next){
     });
 });
 
+server.get("/getItemByID/:id", function(req, res, next){
+    Resource.findById(req.params.id, function (err, resource){
+        if(resource){
+            res.json(resource)
+        }if(err){
+            console.log("Error looking up resource by ID")
+        }
+    })
+
+    Alloy.findById(req.params.id, function (err, alloy){
+        if(alloy){
+            res.json(alloy)
+        }if(err){
+            console.log("Error looking up alloy by ID")
+        }
+    })
+
+    Component.findById(req.params.id, function (err, component){
+        if(component){
+            res.json(component)
+        }if(err){
+            console.log("Error looking up component by ID")
+        }
+    })
+})
+
 //get all alloys that use item as an input
 server.get("/alloyUses/:item", function(req, res, next){
-    console.log("inside server method for getAlloys()")
 
     const item = req.params.item;
     Alloy.find({ingredients: item}, (err, alloys) => {
@@ -169,18 +194,16 @@ server.post("/newAlloy", async function(req, res, next){
     var quantities = req.body.quantity;
     var output = req.body.output;
 
-    var ingredientIDs = ingredients.map( function(str){        
-        const getRes = async () =>{
-            let resource = await Resource.findOne({name: str}).lean().exec()
-            console.log (resource)
+    const getRes = async str => {
+        let resource = await Resource.findOne({name: str}).lean()
             return resource._id
-        }
-        
-        var res = await getRes()
+    }
 
-        console.log(res)
-        return res;
-    });
+    const getIDs = async() =>{
+        return await Promise.all(ingredients.map(str => getRes(str)))
+    }
+
+    const ingredientIDs = await getIDs()
 
     var newAlloy = new Alloy({
         name: name,
@@ -196,7 +219,7 @@ server.post("/newAlloy", async function(req, res, next){
     res.redirect("/alloypage");
 });
 
-server.post("/newComponent", function(req, res, next){
+server.post("/newComponent", async function(req, res, next){
     var name = req.body.name;
     var mass = req.body.mass;
     var volume = req.body.volume;
@@ -205,13 +228,37 @@ server.post("/newComponent", function(req, res, next){
     var quantities = req.body.quantity;
     var types = req.body.type;
 
+    const getRes = async str => {
+        let resource = await Resource.findOne({name: str}).lean()
+            return resource._id
+    }
+    const getAll = async str => {
+        let alloy = await Alloy.findOne({name: str}).lean()
+            return alloy._id
+    }
+
+    const getIDs = async() =>{
+        return await Promise.all(ingredients.map(function (str, index){
+            if(types[index] === "Resource"){
+                return getRes(str)
+            }
+            if(types[index] === "Alloy"){
+                return getAll(str)
+            }
+        })).catch(function(err){
+            console.log("A promise failed to resolve in newComponent server ", err)
+        })
+    }
+
+    const ingredientIDs = await getIDs()
+
     var newComponent = new Component({
         name: name,
         mass: mass,
         volume: volume,
         description: description,
         types:types,
-        ingredients: ingredients,
+        ingredients: ingredientIDs,
         quantities: quantities,
     });
 

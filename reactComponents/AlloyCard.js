@@ -20,7 +20,7 @@ class AlloyCard extends React.Component {
             Types = new Array(Ingredients.length).fill("Resource")
         }
 
-        return <div> 
+            return <div> 
                 <div className ={css.cardButtons}>
                     <form action={"/alloyDelete/"+ Name} method="post">
                         <input type="submit" value="Delete"></input>

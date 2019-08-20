@@ -1,0 +1,57 @@
+:root{
+    --main-color: #4dd2ff;
+}
+
+body {
+    background-color: black;
+    color:white;
+}
+
+th, td {
+    border-bottom: 1px solid var(--main-color);
+  }
+
+.landing_page {
+    text-align: center;
+}
+
+.headerStyle{
+    padding: 10px;
+    border-bottom-style: solid;
+    border-color: var(--main-color);
+}
+
+.headerItem{
+    padding:10px;
+}
+
+
+
+#defaultImage{
+    width:100;
+    height:100;
+    background:var(--main-color)
+}
+
+.cardButtons{
+    padding:10px;
+    width : 100%
+}
+
+.infoColumnRight{
+    float:right;
+    width: 40%;
+}
+
+.infoColumnLeft{
+    float:left;
+    width: 60%;
+}
+
+a:link{
+    color:white;
+}
+
+a:visited{
+    color:var(--main-color);
+}

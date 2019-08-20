@@ -1,0 +1,59 @@
+:root{
+    --main-color: #4dd2ff;
+}
+
+body {
+    background-color: black;
+    color:white;
+}
+
+th, td {
+    border-bottom: 1px solid var(--main-color);
+  }
+
+.DhhHy9xmDsnmUqZrrK13S {
+    text-align: center;
+}
+
+.irH6707hPaIZz6rVwdDAr{
+    padding: 10px;
+    border-bottom-style: solid;
+    border-color: var(--main-color);
+}
+
+._10RsEC05tR1CoTa_RNFyFC{
+    padding:10px;
+}
+
+
+
+#_1LXcdlBQX20UEz-aNJ_BE_{
+    width:100;
+    height:100;
+    background:var(--main-color)
+}
+
+.LT5XEmls3dBx9Tyeq1CA8{
+    padding:10px;
+    width : 100%
+}
+
+._25Vmvt5CL_8-bCfgwEtbkT{
+    float:right;
+    width: 40%;
+}
+
+._1oiWBlbTcfYtGNd4nCT4Jy{
+    float:left;
+    width: 60%;
+}
+
+a:link{
+    color:white;
+}
+
+a:visited{
+    color:var(--main-color);
+}
+
+/*# sourceMappingURL=styles.chunk.css.map*/

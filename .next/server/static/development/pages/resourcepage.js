@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1095,7 +1095,7 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("tr", {
           key: index
         }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_15___default.a, {
-          href: "/item/{info.name}"
+          href: "/item/" + info.name
         }, info.name)), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("td", null, info.mass, " kg"), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("td", null, info.volume, " m", react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("sup", null, "3")));
       });
 
@@ -1375,7 +1375,7 @@ ResourceAdd.propTypes = {
 
 /***/ }),
 
-/***/ 6:
+/***/ 5:
 /*!*************************************!*\
   !*** multi ./pages/resourcepage.js ***!
   \*************************************/

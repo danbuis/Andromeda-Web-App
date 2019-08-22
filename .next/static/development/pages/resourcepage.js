@@ -12022,7 +12022,7 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("tr", {
           key: index
         }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_15___default.a, {
-          href: "/item/{info.name}"
+          href: "/item/" + info.name
         }, info.name)), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("td", null, info.mass, " kg"), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("td", null, info.volume, " m", react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("sup", null, "3")));
       });
 
@@ -12302,7 +12302,7 @@ ResourceAdd.propTypes = {
 
 /***/ }),
 
-/***/ 4:
+/***/ 3:
 /*!***************************************************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2Fresourcepage&absolutePagePath=C%3A%5CUsers%5Cdbuis%5Cworkspace%5CAndromeda%5CWeb%20App%5Cpages%5Cresourcepage.js ***!
   \***************************************************************************************************************************************************************/
@@ -12325,5 +12325,5 @@ module.exports = dll_afa7b25a60452594c240;
 
 /***/ })
 
-},[[4,"static/runtime/webpack.js","styles"]]]);
+},[[3,"static/runtime/webpack.js","styles"]]]);
 //# sourceMappingURL=resourcepage.js.map

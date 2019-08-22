@@ -4,6 +4,7 @@ import ItemTableList from '../reactComponents/ItemTableList'
 import Header from '../reactComponents/Header'
 import axios from 'axios';
 import css from '../CSS/app.css'
+import Link from 'next/link';
 
 export default class extends Component{
     static async getInitialProps(){
@@ -37,7 +38,9 @@ export default class extends Component{
 
             return (
                 <tr key={index}>
-                    <td><Link href="/item/{info.name}">{info.name}</Link>{info.name}</td>
+                    <td><Link href={"/item/"+info.name}>{info.name}</Link></td>
+                    <td>{info.mass} kg</td>
+                    <td>{info.volume} m<sup>3</sup></td>
                 </tr>
             );
         });
@@ -52,7 +55,14 @@ export default class extends Component{
             
 
              <table>
-                <ItemTableList items = {this.props.components}/>
+                <thead>
+                    <tr>
+                        <th>Alloy</th>
+                        <th>Mass</th>
+                        <th>Volume</th>
+                    </tr>
+                </thead>
+                {this.tablebody()}
             </table>
             <ComponentAdd show = {this.state.isOpen}
             onClose = {this.toggleWindow}

@@ -42,7 +42,7 @@ class AlloyCard extends React.Component {
                 />
 
                 <UsedIn 
-                    item = {Name}
+                    item = {this.props.alloy._id}
                  />
         </div>;
     

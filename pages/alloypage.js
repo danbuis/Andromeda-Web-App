@@ -4,6 +4,7 @@ import ItemTableList from '../reactComponents/ItemTableList'
 import Header from '../reactComponents/Header'
 import axios from 'axios';
 import css from '../CSS/app.css'
+import Link from 'next/link';
 
 export default class extends Component{
     static async getInitialProps(){
@@ -26,13 +27,21 @@ export default class extends Component{
         this.setState({isOpen: !this.state.isOpen});
     }
 
+    sum(total, num) {
+        return total+num
+    }
+
     tablebody = props => {
         //console.log("inside tablebody")
         const rows = this.props.alloys.map((info, index) => {
 
             return (
                 <tr key={index}>
-                    <td><Link href="/item/{info.name}">{info.name}</Link>{info.name}</td>
+                    <td><Link href={"/item/"+info.name}>{info.name}</Link></td>
+                    <td>{info.mass} kg</td>
+                    <td>{info.volume} m<sup>3</sup></td>
+                    <td>{info.quantities.reduce(this.sum)}</td>
+                    <td>{info.output}</td>
                 </tr>
             );
         });
@@ -48,7 +57,16 @@ export default class extends Component{
 
         <table>
            
-            <ItemTableList items = {this.props.alloys}/>
+        <thead>
+                <tr>
+                    <th>Resource</th>
+                    <th>Mass</th>
+                    <th>Volume</th>
+                    <th>Input Quantity</th>
+                    <th>Output Quantity</th>
+                </tr>
+            </thead>
+            {this.tablebody()}
         </table>
         <AlloyAdd show = {this.state.isOpen}
           onClose = {this.toggleWindow}

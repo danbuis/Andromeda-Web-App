@@ -237,6 +237,11 @@ server.post("/newComponent", async function(req, res, next){
             return alloy._id
     }
 
+    const getComp = async str => {
+        let component = await Component.findOne({name: str}).lean()
+        return component._id
+    }
+
     const getIDs = async() =>{
         return await Promise.all(ingredients.map(function (str, index){
             if(types[index] === "Resource"){
@@ -244,6 +249,9 @@ server.post("/newComponent", async function(req, res, next){
             }
             if(types[index] === "Alloy"){
                 return getAll(str).catch()
+            }
+            if(types[index] === "Component"){
+                return getComp(str).catch()
             }
         })).catch(function(err){
             console.log("A promise failed to resolve in newComponent server ", err)

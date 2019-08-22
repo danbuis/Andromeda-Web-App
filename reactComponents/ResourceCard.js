@@ -25,7 +25,7 @@ class ResourceCard extends React.Component {
             />
 
             <UsedIn 
-                item = {Name}
+                item = {this.props.resource._id}
             />
             
             

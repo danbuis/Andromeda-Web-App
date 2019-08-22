@@ -30,7 +30,7 @@ export default class extends Component{
 
             return (
                 <tr key={index}>
-                    <td><Link href="/item/{info.name}">{info.name}</Link></td>
+                    <td><Link href={"/item/"+info.name}>{info.name}</Link></td>
                     <td>{info.mass} kg</td>
                     <td>{info.volume} m<sup>3</sup></td>
                 </tr>

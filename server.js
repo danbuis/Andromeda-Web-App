@@ -46,7 +46,7 @@ server.get("/getItemByID/:id", function(req, res, next){
         if(resource){
             res.json(resource)
         }if(err){
-            console.log("Error looking up resource by ID")
+           // console.log("Error looking up resource by ID")
         }
     })
 
@@ -54,7 +54,7 @@ server.get("/getItemByID/:id", function(req, res, next){
         if(alloy){
             res.json(alloy)
         }if(err){
-            console.log("Error looking up alloy by ID")
+           // console.log("Error looking up alloy by ID")
         }
     })
 
@@ -62,7 +62,7 @@ server.get("/getItemByID/:id", function(req, res, next){
         if(component){
             res.json(component)
         }if(err){
-            console.log("Error looking up component by ID")
+           // console.log("Error looking up component by ID")
         }
     })
 })
@@ -200,7 +200,7 @@ server.post("/newAlloy", async function(req, res, next){
     }
 
     const getIDs = async() =>{
-        return await Promise.all(ingredients.map(str => getRes(str)))
+        return await Promise.all(ingredients.map(str => getRes(str))).catch(console.log("rejected promise in creating new alloy"))
     }
 
     const ingredientIDs = await getIDs()
@@ -240,10 +240,10 @@ server.post("/newComponent", async function(req, res, next){
     const getIDs = async() =>{
         return await Promise.all(ingredients.map(function (str, index){
             if(types[index] === "Resource"){
-                return getRes(str)
+                return getRes(str).catch()
             }
             if(types[index] === "Alloy"){
-                return getAll(str)
+                return getAll(str).catch()
             }
         })).catch(function(err){
             console.log("A promise failed to resolve in newComponent server ", err)

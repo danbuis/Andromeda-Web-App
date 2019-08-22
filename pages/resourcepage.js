@@ -4,6 +4,7 @@ import ItemTableList from '../reactComponents/ItemTableList'
 import Header from '../reactComponents/Header'
 import axios from 'axios';
 import css from '../CSS/app.css'
+import Link from 'next/link';
 
 export default class extends Component{
     static async getInitialProps(){
@@ -23,13 +24,15 @@ export default class extends Component{
         this.setState({isOpen: !this.state.isOpen});
     }
 
-    tablebody = props => {
+    tablebody = () => {
         console.log("inside tablebody")
         const rows = this.props.resources.map((info, index) => {
 
             return (
                 <tr key={index}>
-                    <td><Link href="/item/{info.name}">{info.name}</Link>{info.name}</td>
+                    <td><Link href="/item/{info.name}">{info.name}</Link></td>
+                    <td>{info.mass} kg</td>
+                    <td>{info.volume} m<sup>3</sup></td>
                 </tr>
             );
         });
@@ -43,8 +46,14 @@ export default class extends Component{
         <h3>Resources</h3>
         
         <table>
-           
-            <ItemTableList items = {this.props.resources}/>
+            <thead>
+                <tr>
+                    <th>Resource</th>
+                    <th>Mass</th>
+                    <th>Volume</th>
+                </tr>
+            </thead>
+            {this.tablebody()}
         </table>
         
         <ResourceAdd show = {this.state.isOpen}

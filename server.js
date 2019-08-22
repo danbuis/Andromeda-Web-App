@@ -9,7 +9,7 @@ const app = next({ dev });
 const Resource = require('./models/Resource');
 const Alloy = require('./models/Alloy');
 const Component = require('./models/Component');
-
+const Corporation = require('./models/Corporation');
 const handle = app.getRequestHandler();
 
 //connect to MongoDB
@@ -144,7 +144,14 @@ server.get("/item/:name", function (req, res, next) {
     })
 })
    
-    
+ server.get("/corporation/:corp", function (req, res, next){
+     const corp = req.params.corp
+     Corporation.findOne({name: corp}, function (err, corporation){
+         if (corporation){
+             return app.render(req, res, '/corporation', {corporation: corporation})
+         }
+     })
+ })   
 
 //get all alloys from the database
 server.get("/alloyList", function(req, res, next){
@@ -167,6 +174,13 @@ server.get("/assembliesList", function(req, res, next){
     });
 });
 
+//get all assemblies from the database
+server.get("/corporationList", function(req, res, next){
+    Corporation.find({}, (err, corporations) => {      
+        res.json(corporations)
+    });
+});
+
 server.post("/newResource", function(req, res, next){
     var name = req.body.name;
     var mass = req.body.mass;
@@ -183,6 +197,19 @@ server.post("/newResource", function(req, res, next){
 
     newResource.save(next);
     res.redirect("/resourcepage");
+});
+
+server.post("/newCorporation", function(req, res, next){
+
+
+    var newCorporation = new Corporation({
+        name: req.body.name,
+        specialty: req.body.specialty,
+        description: req.body.description
+    });
+
+    newCorporation.save(next);
+    res.redirect("/corporationpage");
 });
 
 server.post("/newAlloy", async function(req, res, next){

@@ -27,6 +27,7 @@ componentDidMount(){
 
 buildResourcePanel(){
     return (
+        <div>
         <UsedInPanel 
         type = {"Alloys"}
         items = {this.state.alloys}
@@ -39,11 +40,13 @@ buildResourcePanel(){
         type = {"Assemblies"}
         items = {this.state.assemblies}
         />
+        </div>
     )
 }
 
 buildAlloyPanel(){
     return(
+        <div>
         <UsedInPanel 
         type = {"Components"}
         items = {this.state.components}
@@ -52,6 +55,7 @@ buildAlloyPanel(){
         type = {"Assemblies"}
         items = {this.state.assemblies}
         />
+        </div>
     )
 }
 
@@ -80,9 +84,9 @@ buildPanels(){
 render(){
        
     return (
-    <div>
+        <div>
         {this.buildPanels()}
-    </div>
+        </div>
     )
 }
 

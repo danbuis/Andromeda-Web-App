@@ -16,7 +16,7 @@ class ComponentCard extends React.Component {
 
         return <div> 
             <div className = {css.cardButtons}>
-                <form action={"/componentDelete/"+ Name} method ="post">
+                <form action={"/componentDelete/"+ this.props.component._id} method ="post">
                     <input type="submit" value="Delete"></input>
                 </form>
             </div>

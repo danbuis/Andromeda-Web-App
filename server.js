@@ -86,10 +86,10 @@ server.get("/componentUses/:item", function(req, res, next){
     });
 });
 
-server.post("/resourceDelete/:name", function(req, res, next){
+server.post("/resourceDelete/:id", function(req, res, next){
     console.log("inside server function")
-    const item = req.params.name
-    Resource.deleteOne({name: item}, function (err, resource){
+    const item = req.params.id
+    Resource.deleteOne({_id: item}, function (err, resource){
         if (err){
             console.log("could not find "+item)
         }
@@ -99,11 +99,11 @@ server.post("/resourceDelete/:name", function(req, res, next){
     })
 })
 
-server.post("/alloyDelete/:name", function(req, res, next){
-    const item = req.params.name
-    Alloy.deleteOne({name: item}, function (err, alloy){
+server.post("/alloyDelete/:id", function(req, res, next){
+    const item = req.params.id
+    Alloy.deleteOne({_id: item}, function (err, alloy){
         if (err){
-            console.log("could not find "+item)
+            console.log("could not find "+ item)
         }
         if (alloy){
             res.redirect("/alloypage");
@@ -111,9 +111,9 @@ server.post("/alloyDelete/:name", function(req, res, next){
     })
 })
 
-server.post("/componentDelete/:name", function(req, res, next){
-    const item = req.params.name
-    Component.deleteOne({name: item}, function (err, component){
+server.post("/componentDelete/:id", function(req, res, next){
+    const item = req.params.id
+    Component.deleteOne({_id: item}, function (err, component){
         if (err){
             console.log("could not find "+item)
         }
@@ -182,17 +182,12 @@ server.get("/corporationList", function(req, res, next){
 });
 
 server.post("/newResource", function(req, res, next){
-    var name = req.body.name;
-    var mass = req.body.mass;
-    var volume = req.body.volume;
-    var description = req.body.description;
-    console.log(name);
-
+  
     var newResource = new Resource({
-        name: name,
-        mass: mass,
-        volume: volume,
-        description: description
+        name: req.body.name,
+        mass: req.body.mass,
+        volume: req.body.volume,
+        description: req.body.description
     });
 
     newResource.save(next);
@@ -213,13 +208,6 @@ server.post("/newCorporation", function(req, res, next){
 });
 
 server.post("/newAlloy", async function(req, res, next){
-    var name = req.body.name;
-    var mass = req.body.mass;
-    var volume = req.body.volume;
-    var description = req.body.description;
-    var ingredients = req.body.ingredient;
-    var quantities = req.body.quantity;
-    var output = req.body.output;
 
     const getRes = async str => {
         let resource = await Resource.findOne({name: str}).lean()
@@ -227,19 +215,19 @@ server.post("/newAlloy", async function(req, res, next){
     }
 
     const getIDs = async() =>{
-        return await Promise.all(ingredients.map(str => getRes(str))).catch(console.log("rejected promise in creating new alloy"))
+        return await Promise.all(req.body.ingredient.map(str => getRes(str))).catch(console.log("rejected promise in creating new alloy"))
     }
 
     const ingredientIDs = await getIDs()
 
     var newAlloy = new Alloy({
-        name: name,
-        mass: mass,
-        volume: volume,
-        description: description,
+        name: req.body.name,
+        mass: req.body.mass,
+        volume: req.body.volume,
+        description: req.body.description,
         ingredients: ingredientIDs,
-        quantities: quantities,
-        output:output
+        quantities: req.body.quantity,
+        output:req.body.output
     });
 
     newAlloy.save(next);
@@ -247,12 +235,7 @@ server.post("/newAlloy", async function(req, res, next){
 });
 
 server.post("/newComponent", async function(req, res, next){
-    var name = req.body.name;
-    var mass = req.body.mass;
-    var volume = req.body.volume;
-    var description = req.body.description;
-    var ingredients = req.body.ingredient;
-    var quantities = req.body.quantity;
+   
     var types = req.body.type;
 
     const getRes = async str => {
@@ -270,7 +253,7 @@ server.post("/newComponent", async function(req, res, next){
     }
 
     const getIDs = async() =>{
-        return await Promise.all(ingredients.map(function (str, index){
+        return await Promise.all(req.body.ingredient.map(function (str, index){
             if(types[index] === "Resource"){
                 return getRes(str).catch()
             }
@@ -288,13 +271,13 @@ server.post("/newComponent", async function(req, res, next){
     const ingredientIDs = await getIDs()
 
     var newComponent = new Component({
-        name: name,
-        mass: mass,
-        volume: volume,
-        description: description,
-        types:types,
+        name: req.body.name,
+        mass: req.body.mass,
+        volume: req.body.volume,
+        description: req.body.description,
+        types:req.body.type,
         ingredients: ingredientIDs,
-        quantities: quantities,
+        quantities: req.body.quantity,
     });
 
     newComponent.save(next);

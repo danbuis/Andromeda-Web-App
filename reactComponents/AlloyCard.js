@@ -22,7 +22,7 @@ class AlloyCard extends React.Component {
 
             return <div> 
                 <div className ={css.cardButtons}>
-                    <form action={"/alloyDelete/"+ Name} method="post">
+                    <form action={"/alloyDelete/"+ this.props.alloy._id} method="post">
                         <input type="submit" value="Delete"></input>
                     </form>
                 </div>

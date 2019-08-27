@@ -12,7 +12,7 @@ class ResourceCard extends React.Component {
         
         return <div> 
             <div className ={css.cardButtons}>
-                <form  action={"/resourceDelete/"+ Name} method="post">
+                <form  action={"/resourceDelete/"+ this.props.resource._id} method="post">
                     <input  type="submit" value="Delete"></input>
                 </form>
             </div>

@@ -6,7 +6,8 @@ import UsedInPanel from './UsedInPanel'
 class UsedIn extends React.Component{
 state = {
     alloys: [],
-    components: []
+    components: [],
+    assemblies: []
 }
 
 componentDidMount(){
@@ -24,21 +25,63 @@ componentDidMount(){
 
 }
 
+buildResourcePanel(){
+    return (
+        <UsedInPanel 
+        type = {"Alloys"}
+        items = {this.state.alloys}
+        />
+        <UsedInPanel 
+        type = {"Components"}
+        items = {this.state.components}
+        />
+        <UsedInPanel 
+        type = {"Assemblies"}
+        items = {this.state.assemblies}
+        />
+    )
+}
 
+buildAlloyPanel(){
+    return(
+        <UsedInPanel 
+        type = {"Components"}
+        items = {this.state.components}
+        />
+        <UsedInPanel 
+        type = {"Assemblies"}
+        items = {this.state.assemblies}
+        />
+    )
+}
+
+buildAssemblyPanel(){
+    return(
+        <UsedInPanel 
+        type = {"Assemblies"}
+        items = {this.state.assemblies}
+        />
+    )
+}
+
+buildPanels(){
+    if(this.props.rank == 0){
+        return (
+            this.buildResourcePanel()
+        )
+    }else if(this.props.rank == 3){
+        return(
+            this.buildAssemblyPanel()
+        )
+    }else return this.buildAlloyPanel()
+
+}
 
 render(){
-    const components = null //this.getComponents();
-   
+       
     return (
     <div>
-        <UsedInPanel 
-            type = {"Alloys"}
-            items = {this.state.alloys}
-        />
-        <UsedInPanel 
-            type = {"Components"}
-            items = {this.state.components}
-        />
+        {this.buildPanels()}
     </div>
     )
 }

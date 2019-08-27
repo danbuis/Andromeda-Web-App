@@ -43,6 +43,7 @@ class AlloyCard extends React.Component {
 
                 <UsedIn 
                     item = {this.props.alloy._id}
+                    rank = {1}
                  />
         </div>;
     

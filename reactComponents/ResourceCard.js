@@ -26,6 +26,7 @@ class ResourceCard extends React.Component {
 
             <UsedIn 
                 item = {this.props.resource._id}
+                rank = {0}
             />
             
             

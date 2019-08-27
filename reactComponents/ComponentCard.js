@@ -33,6 +33,11 @@ class ComponentCard extends React.Component {
                 quantities = {Quantities}
                 types = {Types}
             />
+
+            <UsedIn 
+                item = {this.props.component._id}
+                rank = {2}
+            />
             
         </div>;
     
